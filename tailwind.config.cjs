@@ -21,7 +21,7 @@ module.exports = {
         "brand-yellow": "hsl(var(--clr-brand-yellow), <alpha-value>)",
         "brand-dark-blue": "hsl(var(--clr-brand-dark-blue), <alpha-value>)",
         "brand-gunmetal": "hsl(var(--clr-brand-gunmetal), <alpha-value>)",
-        "brand-vermillion": "hsl(var(--clr-brand-vermillion), <alpha-value)",
+        "brand-vermillion": "hsl(var(--clr-brand-vermillion), <alpha-value>)",
       },
     },
   },

@@ -13,7 +13,10 @@ module.exports = {
         "hd-xs": ["1.125rem", { lineHeight: 1.33, fontWeight: 800 }],
         "nav-links": ["1.125rem", { lineHeight: 1.33, fontWeight: 400 }],
         body: ["0.9375rem", { lineHeight: 1.73, fontWeight: 400 }],
-        "small-caps": ["0.875rem", { lineHeight: 1.71, fontWeight: 700 }],
+        "small-caps": [
+          "0.875rem",
+          { lineHeight: 1.71, fontWeight: 700, letterSpacing: "0.275rem" },
+        ],
       },
       colors: {
         "brand-off-white": "hsl(var(--clr-brand-off-white), <alpha-value>)",

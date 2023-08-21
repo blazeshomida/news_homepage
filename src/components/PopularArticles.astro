@@ -1,0 +1,29 @@
+---
+import PopularArticlePreview from "./PopularArticlePreview.astro";
+---
+
+<section class="lg:col-span-2 lg:mt-[4.5rem]">
+  <ul class="grid gap-4 lg:grid-flow-col">
+    <PopularArticlePreview
+      src="/assets/images/image-retro-pcs.jpg"
+      alt="Miniature PC toys"
+      number={1}
+      title="Reviving Retro PCs"
+      subtitle="What happens when old PCs are given modern upgrades?"
+    />
+    <PopularArticlePreview
+      src="/assets/images/image-top-laptops.jpg"
+      alt="Keyboard keys with red backlight"
+      number={2}
+      title="Top 10 Laptops of 2022"
+      subtitle="Our best picks for various needs and budgets."
+    />
+    <PopularArticlePreview
+      src="/assets/images/image-gaming-growth.jpg"
+      alt="Miniature PC toys"
+      number={3}
+      title="The Growth of Gaming"
+      subtitle="How the pandemic has sparked fresh opportunities."
+    />
+  </ul>
+</section>

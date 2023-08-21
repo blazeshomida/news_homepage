@@ -1,12 +1,14 @@
 ---
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
+import NewArticles from "../components/NewArticles.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="W. News">
   <Header />
-  <main class="grid gap-16">
+  <main class="mx-auto grid max-w-6xl gap-16 lg:grid-flow-col lg:gap-0">
     <Hero />
+    <NewArticles />
   </main>
 </Layout>

@@ -1,24 +1,22 @@
 ---
 import NewArticlePreview from "./NewArticlePreview.astro";
-import Seperator from "./Seperator.astro";
 ---
 
-<section
-  class="mx-4 grid gap-8 bg-brand-dark-blue p-4 text-brand-off-white lg:max-w-xs"
->
-  <h2 class="mb-1 text-hd-lg text-brand-yellow lg:text-hd-lg-desktop">New</h2>
-  <NewArticlePreview
-    title="Hydrogen VS Electric Cars"
-    subtitle="Will hydrogen-fueled cars ever catch up to EVs?"
-  />
-  <Seperator />
-  <NewArticlePreview
-    title="The Downsides of AI Artistry"
-    subtitle="What are the possible adverse effects of on-demand AI image generation?"
-  />
-  <Seperator />
-  <NewArticlePreview
-    title="Is VC Funding Drying Up?"
-    subtitle="Private funding by VC firms is down 50% YOY. We take a look at what that means."
-  />
+<section class="mx-4 bg-brand-dark-blue p-4 text-brand-off-white lg:max-w-xs">
+  <h2 class="mb-9 text-hd-lg text-brand-yellow lg:text-hd-lg-desktop">New</h2>
+  <ul class="grid gap-8">
+    <NewArticlePreview
+      title="Hydrogen VS Electric Cars"
+      subtitle="Will hydrogen-fueled cars ever catch up to EVs?"
+    />
+    <NewArticlePreview
+      title="The Downsides of AI Artistry"
+      subtitle="What are the possible adverse effects of on-demand AI image generation?"
+    />
+    <NewArticlePreview
+      title="Is VC Funding Drying Up?"
+      subtitle="Private funding by VC firms is down 50% YOY. We take a look at what that means."
+      last={true}
+    />
+  </ul>
 </section>

@@ -4,12 +4,16 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
-        "hd-xl": ["3.5rem", { lineHeight: 1, fontWeight: 800 }],
-        "hd-lg": ["2.5rem", { lineHeight: 1, fontWeight: 700 }],
+        "hd-xl-desktop": ["3.5rem", { lineHeight: 1, fontWeight: 800 }],
+        "hd-xl": ["2.5rem", { lineHeight: 1, fontWeight: 800 }],
+        "hd-lg-desktop": ["2.5rem", { lineHeight: 1, fontWeight: 700 }],
+        "hd-lg": ["2rem", { lineHeight: 1, fontWeight: 700 }],
         "hd-md": ["2rem", { lineHeight: 1, fontWeight: 700 }],
         "hd-sm": ["1.25rem", { lineHeight: 1.2, fontWeight: 800 }],
         "hd-xs": ["1.125rem", { lineHeight: 1.33, fontWeight: 800 }],
+        "nav-links": ["1.125rem", { lineHeight: 1.33, fontWeight: 400 }],
         body: ["0.9375rem", { lineHeight: 1.73, fontWeight: 400 }],
+        "small-caps": ["0.875rem", { lineHeight: 1.71, fontWeight: 700 }],
       },
       colors: {
         "brand-off-white": "hsl(var(--clr-brand-off-white), <alpha-value>)",

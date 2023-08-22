@@ -1,18 +1,62 @@
 ---
 import IconMenu from "./svgs/IconMenu.astro";
+import IconMenuClose from "./svgs/IconMenuClose.astro";
 import Logo from "./svgs/Logo.astro";
 ---
 
-<header>
+<header class="sticky top-0 z-20 bg-brand-off-white">
   <nav class="mx-auto flex max-w-6xl justify-between py-8">
     <a href="/"><Logo /></a>
-    <button><IconMenu /></button>
-    <ul class="hidden">
-      <li><a href="/">Home</a></li>
-      <li><a href="/">New</a></li>
-      <li><a href="/">Popular</a></li>
-      <li><a href="/">Trending</a></li>
-      <li><a href="/">Categories</a></li>
-    </ul>
+    <button id="menu-open" class="relative z-10 lg:hidden"><IconMenu /></button>
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-brand-dark-blue opacity-0 lg:hidden"
+    >
+    </div>
+    <div
+      id="menu"
+      class="fixed inset-y-0 -right-full z-50 grid w-64 grid-rows-[min-content_1fr] bg-brand-off-white p-6 lg:relative lg:right-0 lg:w-fit lg:grid-rows-1 lg:p-0"
+    >
+      <button id="menu-close" class="self-start justify-self-end lg:hidden"
+        ><IconMenuClose /></button
+      >
+      <ul
+        id="menu-list"
+        class="mt-20 flex flex-col gap-6 lg:relative lg:mt-0 lg:flex-row lg:items-center lg:gap-10"
+      >
+        <li class="text-nav-links"><a href="/">Home</a></li>
+        <li class="text-nav-links"><a href="/">New</a></li>
+        <li class="text-nav-links"><a href="/">Popular</a></li>
+        <li class="text-nav-links"><a href="/">Trending</a></li>
+        <li class="text-nav-links"><a href="/">Categories</a></li>
+      </ul>
+    </div>
   </nav>
 </header>
+
+<script>
+  import { animate } from "motion";
+  const menu = document.getElementById("menu");
+  const menuOpenButton = document.getElementById("menu-open");
+  const menuCloseButton = document.getElementById("menu-close");
+  function handleClose() {
+    animate(
+      "#menu",
+      { right: "-100%" },
+      { duration: 0.6, easing: "ease-in-out" },
+    );
+    animate("#overlay", { opacity: 0 });
+    menu?.toggleAttribute("data-menu-open");
+  }
+  function handleOpen() {
+    animate("#menu", { right: 0 }, { duration: 0.4, easing: "ease-in-out" });
+    animate(
+      "#overlay",
+      { opacity: 0.5 },
+      { duration: 0.5, easing: "ease-in-out" },
+    );
+    menu?.toggleAttribute("data-menu-open");
+  }
+  menuCloseButton?.addEventListener("click", handleClose);
+  menuOpenButton?.addEventListener("click", handleOpen);
+</script>

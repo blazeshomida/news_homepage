@@ -6,7 +6,7 @@ import Logo from "./svgs/Logo.astro";
 
 <header class="sticky top-0 z-20 bg-brand-off-white">
   <nav class="mx-auto flex max-w-6xl justify-between py-8">
-    <a href="/"><Logo /></a>
+    <a href="#"><Logo /></a>
     <button id="menu-open" class="relative z-10 lg:hidden"><IconMenu /></button>
     <div
       id="overlay"
@@ -25,11 +25,21 @@ import Logo from "./svgs/Logo.astro";
         id="menu-list"
         class="mt-20 flex flex-col gap-6 lg:relative lg:mt-0 lg:flex-row lg:items-center lg:gap-10"
       >
-        <li class="text-nav-links"><a href="/">Home</a></li>
-        <li class="text-nav-links"><a href="/">New</a></li>
-        <li class="text-nav-links"><a href="/">Popular</a></li>
-        <li class="text-nav-links"><a href="/">Trending</a></li>
-        <li class="text-nav-links"><a href="/">Categories</a></li>
+        <li class="text-nav-links transition-all hover:text-brand-vermillion">
+          <a href="#">Home</a>
+        </li>
+        <li class="text-nav-links transition-all hover:text-brand-vermillion">
+          <a href="#">New</a>
+        </li>
+        <li class="text-nav-links transition-all hover:text-brand-vermillion">
+          <a href="#">Popular</a>
+        </li>
+        <li class="text-nav-links transition-all hover:text-brand-vermillion">
+          <a href="#">Trending</a>
+        </li>
+        <li class="text-nav-links transition-all hover:text-brand-vermillion">
+          <a href="#">Categories</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -57,6 +67,7 @@ import Logo from "./svgs/Logo.astro";
         if (!overlay) return;
         overlay.style.opacity = e.matches ? "0" : "";
         overlay.style.display = e.matches ? "none" : "";
+        document.body.style.overflow = e.matches ? "auto" : "";
       };
     })();
 
@@ -71,18 +82,19 @@ import Logo from "./svgs/Logo.astro";
     ]);
     menu?.setAttribute("data-menu-open", "false");
 
-    // menu && (() => (menu.style.display = "none"))();
+    document.body.style.overflow = "auto";
   }
 
   function handleOpen() {
     timeline([
       ["#menu", { display: "grid" }],
-      ["#menu", { right: 0 }, { duration: 0.3, easing: "ease-in-out" }],
+      ["#menu", { right: 0 }, { duration: 0.2, easing: "ease-in-out" }],
     ]);
     timeline([
       ["#overlay", { display: "block" }],
-      ["#overlay", { opacity: 0.5 }, { duration: 0.5, easing: "ease-in-out" }],
+      ["#overlay", { opacity: 0.5 }, { duration: 0.25, easing: "ease-in-out" }],
     ]);
     menu?.setAttribute("data-menu-open", "true");
+    document.body.style.overflow = "hidden";
   }
 </script>

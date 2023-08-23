@@ -8,11 +8,7 @@ import Logo from "./svgs/Logo.astro";
   <nav class="mx-auto flex max-w-6xl justify-between py-8">
     <a href="#"><Logo /></a>
     <button id="menu-open" class="relative z-10 lg:hidden"><IconMenu /></button>
-    <div
-      id="overlay"
-      class="fixed inset-0 bg-brand-dark-blue opacity-0 lg:hidden"
-    >
-    </div>
+    <div id="overlay" class="fixed inset-0 bg-brand-dark-blue opacity-0"></div>
     <div
       id="menu"
       data-menu-open={false}
@@ -46,7 +42,7 @@ import Logo from "./svgs/Logo.astro";
 </header>
 
 <script>
-  import { timeline } from "motion";
+  import { animate, timeline } from "motion";
 
   const menu = document.getElementById("menu");
   const menuOpenButton = document.getElementById("menu-open");
@@ -62,39 +58,51 @@ import Logo from "./svgs/Logo.astro";
       }
 
       desktopMQ.onchange = (e) => {
-        menu.style.right = e.matches ? "0" : "-100%";
-        menu.style.display = e.matches ? "flex" : "none";
         if (!overlay) return;
-        overlay.style.opacity = e.matches ? "0" : "";
-        overlay.style.display = e.matches ? "none" : "";
-        document.body.style.overflow = e.matches ? "auto" : "";
+        if (e.matches) {
+          menu.removeAttribute("hidden");
+          menu?.removeAttribute("data-menu-open");
+          menu.style.right = "0";
+          overlay.setAttribute("hidden", "true");
+          document.body.style.overflow = "auto";
+        } else {
+          menu.setAttribute("hidden", "true");
+          menu.setAttribute("data-menu-open", "false");
+          menu.style.right = "-100%";
+        }
       };
     })();
 
   async function handleClose() {
-    timeline([
-      ["#menu", { right: "-100%" }, { duration: 0.75, easing: "ease-in-out" }],
-      ["#menu", { display: "none" }],
-    ]);
-    timeline([
-      ["#overlay", { opacity: 0 }, { duration: 0.9, easing: "ease-in-out" }],
-      ["#overlay", { display: "none" }],
-    ]);
+    animate(
+      "#menu",
+      { right: "-100%" },
+      { duration: 0.75, easing: "ease-in-out" },
+    );
+    animate(
+      "#overlay",
+      { opacity: 0 },
+      { duration: 0.9, easing: "ease-in-out" },
+    );
     menu?.setAttribute("data-menu-open", "false");
+    setTimeout(() => {
+      menu?.setAttribute("hidden", "true");
+      overlay?.setAttribute("hidden", "true");
+    }, 750);
 
     document.body.style.overflow = "auto";
   }
 
   function handleOpen() {
-    timeline([
-      ["#menu", { display: "grid" }],
-      ["#menu", { right: 0 }, { duration: 0.2, easing: "ease-in-out" }],
-    ]);
-    timeline([
-      ["#overlay", { display: "block" }],
-      ["#overlay", { opacity: 0.5 }, { duration: 0.25, easing: "ease-in-out" }],
-    ]);
+    menu?.removeAttribute("hidden");
     menu?.setAttribute("data-menu-open", "true");
+    overlay?.removeAttribute("hidden");
+    animate("#menu", { right: 0 }, { duration: 0.2, easing: "ease-in-out" });
+    animate(
+      "#overlay",
+      { opacity: 0.5 },
+      { duration: 0.25, easing: "ease-in-out" },
+    );
     document.body.style.overflow = "hidden";
   }
 </script>

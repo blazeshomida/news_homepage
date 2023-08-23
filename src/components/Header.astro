@@ -15,7 +15,8 @@ import Logo from "./svgs/Logo.astro";
     </div>
     <div
       id="menu"
-      class="fixed inset-y-0 -right-full z-50 grid w-64 grid-rows-[min-content_1fr] bg-brand-off-white p-6 lg:relative lg:right-0 lg:w-fit lg:grid-rows-1 lg:p-0"
+      data-menu-open={false}
+      class="fixed inset-y-0 z-50 w-64 grid-rows-[min-content_1fr] bg-brand-off-white p-6 lg:relative lg:w-fit lg:grid-rows-1 lg:p-0"
     >
       <button id="menu-close" class="self-start justify-self-end lg:hidden"
         ><IconMenuClose /></button
@@ -36,27 +37,47 @@ import Logo from "./svgs/Logo.astro";
 
 <script>
   import { animate } from "motion";
+
   const menu = document.getElementById("menu");
   const menuOpenButton = document.getElementById("menu-open");
   const menuCloseButton = document.getElementById("menu-close");
-  function handleClose() {
+  const overlay = document.getElementById("overlay");
+  const desktopMQ = window.matchMedia("(min-width: 1024px)");
+  menu &&
+    (() => {
+      menu.style.right = desktopMQ.matches ? "0" : "-100%";
+      if (!desktopMQ.matches) {
+        menuOpenButton?.addEventListener("click", handleOpen);
+        menuCloseButton?.addEventListener("click", handleClose);
+      }
+
+      desktopMQ.onchange = (e) => {
+        menu.style.right = e.matches ? "0" : "-100%";
+        if (!overlay) return;
+        overlay.style.opacity = e.matches ? "0" : "";
+      };
+    })();
+
+  async function handleClose() {
     animate(
       "#menu",
       { right: "-100%" },
       { duration: 0.6, easing: "ease-in-out" },
     );
     animate("#overlay", { opacity: 0 });
-    menu?.toggleAttribute("data-menu-open");
+    menu?.setAttribute("data-menu-open", "false");
+
+    menu && (() => (menu.style.display = "none"))();
   }
+
   function handleOpen() {
-    animate("#menu", { right: 0 }, { duration: 0.4, easing: "ease-in-out" });
+    menu && (() => (menu.style.display = "grid"))();
+    animate("#menu", { right: 0 }, { duration: 0.3, easing: "ease-in-out" });
     animate(
       "#overlay",
       { opacity: 0.5 },
       { duration: 0.5, easing: "ease-in-out" },
     );
-    menu?.toggleAttribute("data-menu-open");
+    menu?.setAttribute("data-menu-open", "true");
   }
-  menuCloseButton?.addEventListener("click", handleClose);
-  menuOpenButton?.addEventListener("click", handleOpen);
 </script>

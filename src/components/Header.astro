@@ -36,7 +36,7 @@ import Logo from "./svgs/Logo.astro";
 </header>
 
 <script>
-  import { animate } from "motion";
+  import { timeline } from "motion";
 
   const menu = document.getElementById("menu");
   const menuOpenButton = document.getElementById("menu-open");
@@ -47,37 +47,42 @@ import Logo from "./svgs/Logo.astro";
     (() => {
       menu.style.right = desktopMQ.matches ? "0" : "-100%";
       if (!desktopMQ.matches) {
-        menuOpenButton?.addEventListener("click", handleOpen);
-        menuCloseButton?.addEventListener("click", handleClose);
+        menuOpenButton?.addEventListener("pointerdown", handleOpen);
+        menuCloseButton?.addEventListener("pointerdown", handleClose);
       }
 
       desktopMQ.onchange = (e) => {
         menu.style.right = e.matches ? "0" : "-100%";
+        menu.style.display = e.matches ? "flex" : "none";
         if (!overlay) return;
         overlay.style.opacity = e.matches ? "0" : "";
+        overlay.style.display = e.matches ? "none" : "";
       };
     })();
 
   async function handleClose() {
-    animate(
-      "#menu",
-      { right: "-100%" },
-      { duration: 0.6, easing: "ease-in-out" },
-    );
-    animate("#overlay", { opacity: 0 });
+    timeline([
+      ["#menu", { right: "-100%" }, { duration: 0.75, easing: "ease-in-out" }],
+      ["#menu", { display: "none" }],
+    ]);
+    timeline([
+      ["#overlay", { opacity: 0 }, { duration: 0.9, easing: "ease-in-out" }],
+      ["#overlay", { display: "none" }],
+    ]);
     menu?.setAttribute("data-menu-open", "false");
 
-    menu && (() => (menu.style.display = "none"))();
+    // menu && (() => (menu.style.display = "none"))();
   }
 
   function handleOpen() {
-    menu && (() => (menu.style.display = "grid"))();
-    animate("#menu", { right: 0 }, { duration: 0.3, easing: "ease-in-out" });
-    animate(
-      "#overlay",
-      { opacity: 0.5 },
-      { duration: 0.5, easing: "ease-in-out" },
-    );
+    timeline([
+      ["#menu", { display: "grid" }],
+      ["#menu", { right: 0 }, { duration: 0.3, easing: "ease-in-out" }],
+    ]);
+    timeline([
+      ["#overlay", { display: "block" }],
+      ["#overlay", { opacity: 0.5 }, { duration: 0.5, easing: "ease-in-out" }],
+    ]);
     menu?.setAttribute("data-menu-open", "true");
   }
 </script>

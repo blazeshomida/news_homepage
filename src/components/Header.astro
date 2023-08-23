@@ -47,12 +47,13 @@ import Logo from "./svgs/Logo.astro";
     (() => {
       menu.style.right = desktopMQ.matches ? "0" : "-100%";
       if (!desktopMQ.matches) {
-        menuOpenButton?.addEventListener("click", handleOpen);
-        menuCloseButton?.addEventListener("click", handleClose);
+        menuOpenButton?.addEventListener("pointerdown", handleOpen);
+        menuCloseButton?.addEventListener("pointerdown", handleClose);
       }
 
       desktopMQ.onchange = (e) => {
         menu.style.right = e.matches ? "0" : "-100%";
+        menu.style.display = "flex";
         if (!overlay) return;
         overlay.style.opacity = e.matches ? "0" : "";
       };
